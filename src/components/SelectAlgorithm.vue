@@ -1,12 +1,22 @@
 <script setup lang="ts">
+import { ref } from 'vue';
 import { SortingAlgorithms } from './../ts/enums';
+import { useAppStore } from './../stores/app.ts';
+
+const appStore = useAppStore();
+const { selectedAlgorithm } = appStore;
+
+const selected = ref(SortingAlgorithms.QUICK_SORT);
+
+const handleChangeSort = () => { selectedAlgorithm.value = selected.value; }
+
 </script>
 
 <template>
   <section class="algorithm">
     <h2>Select Algorithm:</h2>
     <section class="select-container">
-      <select id="id" name="id">
+      <select v-model="selected" @change="handleChangeSort" id="id" name="id">
         <option v-bind:value="SortingAlgorithms.QUICK_SORT">QuickSort</option>
         <option v-bind:value="SortingAlgorithms.MERGE_SORT">MergeSort</option>
         <option v-bind:value="SortingAlgorithms.HEAP_SORT">HeapSort</option>
@@ -19,6 +29,7 @@ import { SortingAlgorithms } from './../ts/enums';
     </section>
   </section>
 </template>
+
 
 <style scoped lang="scss">
 @import './../assets/scss/variables.scss';

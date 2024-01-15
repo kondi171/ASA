@@ -2,16 +2,33 @@
 import { useAppStore } from './../stores/app.ts';
 
 const appStore = useAppStore();
-const { data } = appStore;
+const { unsortedArray } = appStore;
 
 const displayFileName = () => {
   const fileInput = document.getElementById('fileInput') as HTMLElement;
   const fileNameContainer = document.getElementById('fileName');
   fileNameContainer!.textContent = fileInput!.files[0].name;
+  console.log(fileInput);
 }
 
-const handleGenerateData = () => {
+const getRandomInt = (min: number, max: number): number => { return Math.floor(Math.random() * (max - min + 1)) + min; }
 
+const generateRandomNumbers = (length: number): number[] => {
+  const numbers: number[] = [];
+
+  for (let i = 0; i < length; i++) {
+    const randomNumber = getRandomInt(1, 100);
+    numbers.push(randomNumber);
+  }
+
+  return numbers;
+}
+
+
+
+const handleGenerateData = () => {
+  const randomNumbers = generateRandomNumbers(100);
+  unsortedArray.value = randomNumbers;
 }
 </script>
 
@@ -39,12 +56,6 @@ const handleGenerateData = () => {
 @import './../assets/scss/variables.scss';
 @import './../assets/scss/mixins.scss';
 @import './../assets/scss/placeholders.scss';
-
-import {
-  useAppStore
-}
-
-from '../../.history/src/stores/app_20240115180226';
 
 .data {
   @include tile(30vw, 40vh);

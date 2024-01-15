@@ -3,13 +3,17 @@ import Header from './components/Header.vue';
 import SelectAlgorithm from './components/SelectAlgorithm.vue';
 import SelectData from './components/SelectData.vue';
 import ControlPanel from './components/ControlPanel.vue';
-import Sorting from './components/Sorting.vue';
+import Sorted from './components/Sorted.vue';
+import Unsorted from './components/Unsorted.vue';
 </script>
 
 <template>
   <Header />
   <main>
-    <Sorting />
+    <div class="sort-wrapper">
+      <Unsorted />
+      <Sorted />
+    </div>
     <div class="control-wrapper">
       <SelectAlgorithm />
       <SelectData />

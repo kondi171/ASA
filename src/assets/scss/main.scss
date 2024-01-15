@@ -12,3 +12,25 @@ body {
   background-color: $bgColor;
   font-family: $textFont;
 }
+
+::selection {
+  background-color: $hoverColor;
+  color: $bgColor;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar {
+  background-color: $bgColor;
+  border-radius: 10px;
+  width: 1vmin;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: $secondaryColor;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: $bgColor;
+  border-radius: 10px;
+}

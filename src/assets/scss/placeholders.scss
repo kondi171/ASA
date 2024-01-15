@@ -27,3 +27,38 @@
     border-color: $primaryColor;
   }
 }
+
+%arrayTile {
+  @include tile(60vw, 40vh);
+  overflow-y: auto;
+  position: relative;
+
+  h2 {
+    @extend %title;
+    position: fixed;
+    width: 58vw;
+    margin-top: -.01vmin;
+    padding: 2vmin;
+    background-color: $supportColor;
+  }
+
+  .data {
+    margin-top: 8vmin;
+    padding: 2vmin;
+    text-align: justify;
+    color: $secondaryColor;
+
+    .info {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 20vh;
+      font-size: 6vmin;
+      font-weight: bold;
+      color: $hoverColor;
+      text-align: center;
+    }
+  }
+
+}
