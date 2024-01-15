@@ -1,0 +1,29 @@
+@import 'variables.scss';
+
+%title {
+  text-align: center;
+  margin: 2vmin;
+  font-size: 3.5vmin;
+  font-family: $headerFont;
+  color: $secondaryColor;
+  border-bottom: 2px solid $secondaryColor;
+}
+
+%btn {
+  width: 50%;
+  font-size: 2vmin;
+  font-weight: bold;
+  color: $primaryColor;
+  background: linear-gradient(180deg, $bgColor 0%, $hoverColor 100%);
+  border-radius: 5px;
+  padding: 2vmin;
+  transition-duration: .4s;
+  border: 2px solid $hoverColor;
+  margin: 2vmin;
+  text-align: center;
+
+  &:hover {
+    cursor: pointer;
+    border-color: $primaryColor;
+  }
+}

@@ -1,0 +1,10 @@
+export enum SortingAlgorithms {
+  QUICK_SORT,
+  MERGE_SORT,
+  HEAP_SORT,
+  RADIX_SORT,
+  COUNTING_SORT,
+  TIM_SORT,
+  BUCKET_SORT,
+  INTRO_SORT
+}

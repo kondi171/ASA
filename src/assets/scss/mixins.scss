@@ -1,0 +1,9 @@
+@mixin tile ($width, $height) {
+  margin: 3vmin;
+  width: $width;
+  height: $height;
+  background-color: $supportColor;
+  border-radius: 5px;
+  box-shadow: 0 0 4vmin 1vmin $hoverColor;
+  border: .1vmin solid $primaryColor;
+}
