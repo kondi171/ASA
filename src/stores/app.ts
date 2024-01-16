@@ -13,7 +13,8 @@ export const useAppStore = defineStore('app', () => {
     value: SortingAlgorithms.QUICK_SORT
   });
   const error = reactive({
-    value: false
+    dataGenerated: false,
+    fileReaded: true,
   });
   return {
     unsortedArray,

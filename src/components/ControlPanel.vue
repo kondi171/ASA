@@ -1,6 +1,5 @@
 <script setup lang="ts">
 
-import { watch } from 'vue';
 import { SortingAlgorithms } from '../ts/enums';
 import { useAppStore } from './../stores/app.ts';
 
@@ -8,7 +7,7 @@ const appStore = useAppStore();
 const { selectedAlgorithm, unsortedArray, sortedArray, error } = appStore;
 
 const handleRunSorting = () => {
-  if (unsortedArray.value.length === 0) error.value = true;
+  if (unsortedArray.value.length === 0) error.dataGenerated = true;
   else if (selectedAlgorithm.value === SortingAlgorithms.QUICK_SORT) sortedArray.value = quickSort(unsortedArray.value);
   else if (selectedAlgorithm.value === SortingAlgorithms.MERGE_SORT) sortedArray.value = mergeSort(unsortedArray.value);
   else if (selectedAlgorithm.value === SortingAlgorithms.HEAP_SORT) sortedArray.value = heapSort(unsortedArray.value);

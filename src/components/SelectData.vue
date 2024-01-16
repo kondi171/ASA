@@ -19,27 +19,53 @@
         <font-awesome-icon class="data-icon" icon="upload" />
       </label>
       <div class="file-name" id="fileName">No file uploaded!</div>
-      <input id="fileInput" type="file" name="file" @change="displayFileName" />
+      <input id="fileInput" type="file" name="file" @change="readFile" />
     </div>
   </section>
+  <div v-if="!error.fileReaded" class="error-message">
+    <h4>The file was not read correctly. File must meet the following conditions:</h4>
+    <span>&bull; Must be in .json format.</span>
+    <span>&bull; Must have the following template: [12, 67, ... ,39]</span>
+  </div>
 </template>
 
 <script setup lang="ts">
 import { useAppStore } from './../stores/app.ts'
-import { ref } from 'vue'
+import { ref, watch } from 'vue';
 
 const appStore = useAppStore()
-const { unsortedArray } = appStore
+const { unsortedArray, error } = appStore
 
 const arraySize = ref(100);
 const startRange = ref(0);
 const endRange = ref(100);
 
-const displayFileName = () => {
-  const fileInput = document.getElementById('fileInput') as HTMLInputElement
-  const fileNameContainer = document.getElementById('fileName') as HTMLDivElement
-  fileNameContainer.textContent = fileInput.files[0].name
+const readFile = () => {
+  const fileInput = document.getElementById('fileInput') as HTMLInputElement;
+  const fileNameContainer = document.getElementById('fileName') as HTMLDivElement;
+  const file = fileInput.files[0];
+  const reader = new FileReader();
+
+  reader.onload = (event) => {
+    const cleanedText = (event.target?.result as string).replace(/^\uFEFF/, '');
+    try {
+      const array = JSON.parse(cleanedText);
+      unsortedArray.value = array;
+      fileNameContainer.textContent = file.name;
+    } catch (err) {
+      console.error("Błąd parsowania JSON:", err);
+      error.fileReaded = false;
+    }
+  };
+
+  if (file) {
+    reader.readAsText(file);
+  } else {
+    fileNameContainer.textContent = 'No file uploaded!';
+    error.fileReaded = false;
+  }
 }
+
 
 const getRandomInt = (min: number, max: number): number => {
   return Math.floor(Math.random() * (max - min + 1)) + min
@@ -73,6 +99,14 @@ const handleGenerateData = () => {
   const randomNumbers = generateRandomNumbers(arraySize.value)
   unsortedArray.value = randomNumbers
 }
+
+watch(error, () => {
+  if (!error.fileReaded) {
+    setTimeout(() => {
+      error.fileReaded = true;
+    }, 2000);
+  }
+});
 </script>
 
 <style scoped lang="scss">
@@ -136,6 +170,24 @@ const handleGenerateData = () => {
       font-family: $headerFont;
       color: $secondaryColor;
     }
+  }
+}
+
+.error-message {
+  position: fixed;
+  right: 2vmin;
+  top: 2vmin;
+  transform: scale(1);
+  transition: transform 0.4s;
+  background-color: $hoverColor;
+  color: #ff0000;
+  width: 60vmin;
+  padding: 2vmin;
+  border-radius: 2vmin;
+  border: .1vmin solid #ff0000;
+
+  span {
+    display: block;
   }
 }
 </style>
