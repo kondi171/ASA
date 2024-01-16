@@ -11,10 +11,14 @@ export const useAppStore = defineStore('app', () => {
   });
   const selectedAlgorithm = reactive({
     value: SortingAlgorithms.QUICK_SORT
-  })
+  });
+  const error = reactive({
+    value: false
+  });
   return {
     unsortedArray,
     sortedArray,
     selectedAlgorithm,
+    error,
   }
 });

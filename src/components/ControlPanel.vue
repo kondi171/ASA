@@ -1,13 +1,15 @@
 <script setup lang="ts">
 
+import { watch } from 'vue';
 import { SortingAlgorithms } from '../ts/enums';
 import { useAppStore } from './../stores/app.ts';
 
 const appStore = useAppStore();
-const { selectedAlgorithm, unsortedArray, sortedArray } = appStore;
+const { selectedAlgorithm, unsortedArray, sortedArray, error } = appStore;
 
 const handleRunSorting = () => {
-  if (selectedAlgorithm.value === SortingAlgorithms.QUICK_SORT) sortedArray.value = quickSort(unsortedArray.value);
+  if (unsortedArray.value.length === 0) error.value = true;
+  else if (selectedAlgorithm.value === SortingAlgorithms.QUICK_SORT) sortedArray.value = quickSort(unsortedArray.value);
   else if (selectedAlgorithm.value === SortingAlgorithms.MERGE_SORT) sortedArray.value = mergeSort(unsortedArray.value);
   else if (selectedAlgorithm.value === SortingAlgorithms.HEAP_SORT) sortedArray.value = heapSort(unsortedArray.value);
   else if (selectedAlgorithm.value === SortingAlgorithms.RADIX_SORT) sortedArray.value = radixSort(unsortedArray.value);
@@ -368,13 +370,14 @@ const introSort = (arr: number[]): number[] => {
   return arr;
 };
 
+
 </script>
 
 <template>
   <section class="control-panel">
     <h2>Control Panel:</h2>
     <div class="btn-wrapper">
-      <button @click="handleRunSorting">
+      <button :class="{ disabled: !unsortedArray.value.length > 0 }" @click="handleRunSorting">
         Run
         <font-awesome-icon class="data-icon" icon="play" />
       </button>
@@ -400,8 +403,21 @@ const introSort = (arr: number[]): number[] => {
     align-items: center;
     flex-direction: column;
 
+
+
     button {
       @extend %btn;
+
+      &.disabled {
+        background: linear-gradient(180deg, rgba(112, 112, 112, 1) 34%, rgba(22, 22, 22, 1) 100%);
+        color: black;
+        border: 2px solid black;
+
+        &:hover {
+          border-color: black;
+        }
+      }
+
 
       .data-icon {
         margin-left: 1vmin;
