@@ -2,7 +2,7 @@
   <section class="data">
     <h2>Select Data:</h2>
     <div class="btn-wrapper">
-      <button @click="handleGenerateData" class="generate-btn">
+      <button @click="handleGenerateData" class="generate-btn" title="Generate Random Data">
         Generate Data
         <font-awesome-icon class="data-icon" icon="shuffle" />
       </button>
@@ -14,7 +14,7 @@
         <label for="endRange">to</label>
         <input placeholder="to" type="number" :value="endRange" id="endRange" @change="updateEndRange">
       </div>
-      <label for="fileInput" class="custom-file-upload">
+      <label for="fileInput" class="custom-file-upload" title="Upload Data">
         Upload Data
         <font-awesome-icon class="data-icon" icon="upload" />
       </label>
@@ -97,7 +97,8 @@ const updateEndRange = (event: Event) => {
 
 const handleGenerateData = () => {
   const randomNumbers = generateRandomNumbers(arraySize.value)
-  unsortedArray.value = randomNumbers
+  unsortedArray.value = randomNumbers;
+  error.dataGenerated = true;
 }
 
 watch(error, () => {

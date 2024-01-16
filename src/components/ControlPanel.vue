@@ -369,6 +369,50 @@ const introSort = (arr: number[]): number[] => {
   return arr;
 };
 
+const handleDownloadUnsorted = () => {
+  if (unsortedArray.value.length === 0) {
+    error.dataGenerated = true;
+    return;
+  }
+
+  const jsonData = JSON.stringify(unsortedArray.value, null, 2);
+
+  const blob = new Blob([jsonData], { type: 'application/json' });
+
+  const link = document.createElement('a');
+  link.href = URL.createObjectURL(blob);
+
+  const fileName = 'unsortedData.json';
+  link.download = fileName;
+
+  document.body.appendChild(link);
+  link.click();
+
+  document.body.removeChild(link);
+}
+
+
+const handleDownloadSorted = () => {
+  if (sortedArray.value.length === 0) {
+    error.dataSorted = true;
+    return;
+  }
+
+  const jsonData = JSON.stringify(sortedArray.value, null, 2);
+
+  const blob = new Blob([jsonData], { type: 'application/json' });
+
+  const link = document.createElement('a');
+  link.href = URL.createObjectURL(blob);
+
+  const fileName = 'sortedData.json';
+  link.download = fileName;
+
+  document.body.appendChild(link);
+  link.click();
+
+  document.body.removeChild(link);
+}
 
 </script>
 
@@ -376,11 +420,22 @@ const introSort = (arr: number[]): number[] => {
   <section class="control-panel">
     <h2>Control Panel:</h2>
     <div class="btn-wrapper">
-      <button :class="{ disabled: !unsortedArray.value.length > 0 }" @click="handleRunSorting">
+      <button :class="{ disabled: !unsortedArray.value.length > 0 }" @click="handleRunSorting" title="Run Sorting">
         Run
         <font-awesome-icon class="data-icon" icon="play" />
       </button>
+      <button :class="{ disabled: !unsortedArray.value.length > 0 }" @click="handleDownloadUnsorted"
+        title="Download Unsorted Array">
+        Unsorted
+        <font-awesome-icon class="data-icon" icon="download" />
+      </button>
+      <button :class="{ disabled: !sortedArray.value.length > 0 }" @click="handleDownloadSorted"
+        title="Download Sorted Array">
+        Sorted
+        <font-awesome-icon class="data-icon" icon="download" />
+      </button>
     </div>
+
   </section>
 </template>
 
@@ -400,12 +455,11 @@ const introSort = (arr: number[]): number[] => {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
-
-
+    // flex-direction: column;
 
     button {
       @extend %btn;
+      font-size: 1.7vmin;
 
       &.disabled {
         background: linear-gradient(180deg, rgba(112, 112, 112, 1) 34%, rgba(22, 22, 22, 1) 100%);

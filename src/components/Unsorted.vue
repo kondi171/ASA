@@ -23,7 +23,6 @@ watch(error, () => {
       </div>
       <div v-else>
         {{ unsortedArray.value.map((element: number) => element) }}
-        <span>{{ unsortedArray.value.length }}</span>
       </div>
     </div>
   </section>
@@ -36,14 +35,5 @@ watch(error, () => {
 
 .sorting {
   @extend %arrayTile;
-
-  span {
-    color: red;
-  }
-
-  .error {
-    color: red !important;
-    transform: scale(.9);
-  }
 }
 </style>

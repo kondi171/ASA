@@ -17,7 +17,7 @@ const handleChangeSort = () => { selectedAlgorithm.value = selected.value; }
     <h2>Select Algorithm:</h2>
     <div class="wrapper">
       <section class="select-container">
-        <select v-model="selected" @change="handleChangeSort" id="id" name="id">
+        <select v-model="selected" @change="handleChangeSort" id="id" name="id" title="Select Sorting Algorithm">
           <option v-bind:value="SortingAlgorithms.QUICK_SORT">QuickSort</option>
           <option v-bind:value="SortingAlgorithms.MERGE_SORT">MergeSort</option>
           <option v-bind:value="SortingAlgorithms.HEAP_SORT">HeapSort</option>

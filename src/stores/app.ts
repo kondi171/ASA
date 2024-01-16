@@ -14,6 +14,7 @@ export const useAppStore = defineStore('app', () => {
   });
   const error = reactive({
     dataGenerated: false,
+    dataSorted: false,
     fileReaded: true,
   });
   return {
