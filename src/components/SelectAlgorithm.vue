@@ -4,11 +4,13 @@ import { SortingAlgorithms } from './../ts/enums';
 import { useAppStore } from './../stores/app.ts';
 
 const appStore = useAppStore();
-const { selectedAlgorithm } = appStore;
+const { selectedAlgorithm, isModalVisible } = appStore;
 
 const selected = ref(SortingAlgorithms.QUICK_SORT);
 
 const handleChangeSort = () => { selectedAlgorithm.value = selected.value; }
+
+const handleOpenModal = () => { isModalVisible.value = true }
 
 </script>
 
@@ -16,6 +18,7 @@ const handleChangeSort = () => { selectedAlgorithm.value = selected.value; }
   <section class="algorithm">
     <h2>Select Algorithm:</h2>
     <div class="wrapper">
+      <font-awesome-icon class="data-icon" icon="eye" title="Show Visualization" @click="handleOpenModal" />
       <section class="select-container">
         <select v-model="selected" @change="handleChangeSort" id="id" name="id" title="Select Sorting Algorithm">
           <option v-bind:value="SortingAlgorithms.QUICK_SORT">QuickSort</option>
@@ -28,7 +31,7 @@ const handleChangeSort = () => { selectedAlgorithm.value = selected.value; }
           <option v-bind:value="SortingAlgorithms.INTRO_SORT">IntroSort</option>
         </select>
       </section>
-      <font-awesome-icon class="data-icon" icon="circle-info" />
+      <font-awesome-icon class="data-icon" icon="circle-info" title="Show Info" />
       <div class="sort-description">
         <div v-if="selectedAlgorithm.value === SortingAlgorithms.QUICK_SORT">
           <h4>QuickSort</h4>
@@ -131,7 +134,7 @@ const handleChangeSort = () => { selectedAlgorithm.value = selected.value; }
 
     .data-icon {
       font-size: 3vmin;
-      margin-left: 6vmin;
+      margin: 0 6vmin;
       color: $primaryColor;
       transition-duration: .4s;
 

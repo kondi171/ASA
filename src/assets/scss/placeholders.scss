@@ -1,4 +1,5 @@
 @import 'variables.scss';
+@import 'mixins.scss';
 
 %title {
   text-align: center;
@@ -75,5 +76,4 @@
     color: red !important;
     transform: scale(.9);
   }
-
 }

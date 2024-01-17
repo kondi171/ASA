@@ -32,6 +32,9 @@ export const useAppStore = defineStore('app', () => {
     bucketSort: 0,
     introSort: 0
   });
+  const isModalVisible = reactive({
+    value: false
+  });
   return {
     unsortedArray,
     sortedArray,
@@ -39,5 +42,6 @@ export const useAppStore = defineStore('app', () => {
     error,
     time,
     sortingTimes,
+    isModalVisible
   }
 });

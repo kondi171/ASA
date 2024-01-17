@@ -2,7 +2,6 @@
 import { watch } from 'vue';
 import { useAppStore } from '../stores/app';
 
-
 const appStore = useAppStore();
 const { sortedArray, error, time } = appStore;
 watch(error, () => {
@@ -27,7 +26,6 @@ watch(error, () => {
 
       </div>
     </div>
-
   </section>
 </template>
 
