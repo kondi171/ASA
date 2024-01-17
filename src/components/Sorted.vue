@@ -4,7 +4,7 @@ import { useAppStore } from '../stores/app';
 
 
 const appStore = useAppStore();
-const { sortedArray, error } = appStore;
+const { sortedArray, error, time } = appStore;
 watch(error, () => {
   if (error.dataSorted) {
     setTimeout(() => {
@@ -16,15 +16,18 @@ watch(error, () => {
 
 <template>
   <section class="sorting">
-    <h2>Sorted Array:</h2>
+    <h2>Sorted Array:<div class="time">Sorted in {{ time.sortedIn }}ms</div>
+    </h2>
     <div class="data">
       <div v-if="sortedArray.value.length === 0" class="info" :class="{ error: error.dataSorted }">
         Select Sorting Algorithm and Click Run!
       </div>
       <div v-else>
         {{ sortedArray.value.map((number: number) => number) }}
+
       </div>
     </div>
+
   </section>
 </template>
 

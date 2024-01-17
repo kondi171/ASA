@@ -4,18 +4,74 @@ import { SortingAlgorithms } from '../ts/enums';
 import { useAppStore } from './../stores/app.ts';
 
 const appStore = useAppStore();
-const { selectedAlgorithm, unsortedArray, sortedArray, error } = appStore;
+const { selectedAlgorithm, unsortedArray, sortedArray, error, time, sortingTimes } = appStore;
 
 const handleRunSorting = () => {
   if (unsortedArray.value.length === 0) error.dataGenerated = true;
-  else if (selectedAlgorithm.value === SortingAlgorithms.QUICK_SORT) sortedArray.value = quickSort(unsortedArray.value);
-  else if (selectedAlgorithm.value === SortingAlgorithms.MERGE_SORT) sortedArray.value = mergeSort(unsortedArray.value);
-  else if (selectedAlgorithm.value === SortingAlgorithms.HEAP_SORT) sortedArray.value = heapSort(unsortedArray.value);
-  else if (selectedAlgorithm.value === SortingAlgorithms.RADIX_SORT) sortedArray.value = radixSort(unsortedArray.value);
-  else if (selectedAlgorithm.value === SortingAlgorithms.COUNTING_SORT) sortedArray.value = countingSort(unsortedArray.value);
-  else if (selectedAlgorithm.value === SortingAlgorithms.TIM_SORT) sortedArray.value = timSort(unsortedArray.value);
-  else if (selectedAlgorithm.value === SortingAlgorithms.BUCKET_SORT) sortedArray.value = bucketSort(unsortedArray.value);
-  else if (selectedAlgorithm.value === SortingAlgorithms.INTRO_SORT) sortedArray.value = introSort(unsortedArray.value);
+  else if (selectedAlgorithm.value === SortingAlgorithms.QUICK_SORT) {
+    const startTime = performance.now();
+    sortedArray.value = quickSort(unsortedArray.value);
+    const endTime = performance.now();
+    const executionTime = endTime - startTime;
+    time.sortedIn = Number(executionTime.toFixed(5));
+    sortingTimes.quickSort = Number(executionTime.toFixed(5));
+  }
+  else if (selectedAlgorithm.value === SortingAlgorithms.MERGE_SORT) {
+    const startTime = performance.now();
+    sortedArray.value = mergeSort(unsortedArray.value);
+    const endTime = performance.now();
+    const executionTime = endTime - startTime;
+    time.sortedIn = Number(executionTime.toFixed(5));
+    sortingTimes.mergeSort = Number(executionTime.toFixed(5));
+  }
+  else if (selectedAlgorithm.value === SortingAlgorithms.HEAP_SORT) {
+    const startTime = performance.now();
+    sortedArray.value = heapSort(unsortedArray.value);
+    const endTime = performance.now();
+    const executionTime = endTime - startTime;
+    time.sortedIn = Number(executionTime.toFixed(5));
+    sortingTimes.heapSort = Number(executionTime.toFixed(5));
+  }
+  else if (selectedAlgorithm.value === SortingAlgorithms.RADIX_SORT) {
+    const startTime = performance.now();
+    sortedArray.value = radixSort(unsortedArray.value);
+    const endTime = performance.now();
+    const executionTime = endTime - startTime;
+    time.sortedIn = Number(executionTime.toFixed(5));
+    sortingTimes.radixSort = Number(executionTime.toFixed(5));
+  }
+  else if (selectedAlgorithm.value === SortingAlgorithms.COUNTING_SORT) {
+    const startTime = performance.now();
+    sortedArray.value = countingSort(unsortedArray.value);
+    const endTime = performance.now();
+    const executionTime = endTime - startTime;
+    time.sortedIn = Number(executionTime.toFixed(5));
+    sortingTimes.countingSort = Number(executionTime.toFixed(5));
+  }
+  else if (selectedAlgorithm.value === SortingAlgorithms.TIM_SORT) {
+    const startTime = performance.now();
+    sortedArray.value = timSort(unsortedArray.value);
+    const endTime = performance.now();
+    const executionTime = endTime - startTime;
+    time.sortedIn = Number(executionTime.toFixed(5));
+    sortingTimes.timSort = Number(executionTime.toFixed(5));
+  }
+  else if (selectedAlgorithm.value === SortingAlgorithms.BUCKET_SORT) {
+    const startTime = performance.now();
+    sortedArray.value = bucketSort(unsortedArray.value);
+    const endTime = performance.now();
+    const executionTime = endTime - startTime;
+    time.sortedIn = Number(executionTime.toFixed(5));
+    sortingTimes.bucketSort = Number(executionTime.toFixed(5));
+  }
+  else if (selectedAlgorithm.value === SortingAlgorithms.INTRO_SORT) {
+    const startTime = performance.now();
+    sortedArray.value = introSort(unsortedArray.value);
+    const endTime = performance.now();
+    const executionTime = endTime - startTime;
+    time.sortedIn = Number(executionTime.toFixed(5));
+    sortingTimes.introSort = Number(executionTime.toFixed(5));
+  }
 }
 
 const quickSort = (arr: number[]): number[] => {
@@ -146,27 +202,19 @@ const radixSort = (arr: number[]): number[] => {
 
 const countingSort = (arr: number[]): number[] => {
   const n = arr.length;
-
-  // Znajdź maksymalną wartość w tablicy
   const max = Math.max(...arr);
-
-  // Utwórz tablicę pomocniczą 'count' o rozmiarze (max + 1) i zainicjuj ją zerami
   const count: number[] = Array(max + 1).fill(0);
 
-  // Zlicz wystąpienia każdego elementu w tablicy 'arr'
   for (let i = 0; i < n; i++) {
     count[arr[i]]++;
   }
 
-  // Zaktualizuj tablicę 'count' - każdy element przechowuje sumę wystąpień poprzednich elementów
   for (let i = 1; i <= max; i++) {
     count[i] += count[i - 1];
   }
 
-  // Utwórz tablicę wynikową 'output'
   const output: number[] = new Array(n);
 
-  // Przejdź przez tablicę 'arr' od końca, umieszczając elementy na właściwych pozycjach w 'output'
   for (let i = n - 1; i >= 0; i--) {
     output[count[arr[i]] - 1] = arr[i];
     count[arr[i]]--;
@@ -272,21 +320,18 @@ const bucketSort = (arr: number[]): number[] => {
 }
 
 const introSort = (arr: number[]): number[] => {
-  const originalArray = [...arr];
-  const maxDepth = Math.floor(2 * Math.log2(originalArray.length));
-
-  introsortHelper(originalArray, 0, originalArray.length - 1, maxDepth);
-
-  function introsortHelper(arr: number[], low: number, high: number, maxDepth: number): void {
+  function introSortHelper(arr: number[], low: number, high: number, maxDepth: number): void {
     if (low < high) {
-      if (maxDepth === 0) {
+      if (high - low <= 16) {
+        insertionSort(arr, low, high);
+      } else if (maxDepth === 0) {
         heapSort(arr, low, high);
       } else {
-        const partitionIndex = partition(arr, low, high);
-        introsortHelper(arr, low, partitionIndex, maxDepth - 1);
-        introsortHelper(arr, partitionIndex + 1, high, maxDepth - 1);
+        const pivotIndex = partition(arr, low, high);
+        introSortHelper(arr, low, pivotIndex, maxDepth - 1);
+        introSortHelper(arr, pivotIndex + 1, high, maxDepth - 1);
       }
-    } else insertionSort(arr, low, high);
+    }
   }
 
   function partition(arr: number[], low: number, high: number): number {
@@ -307,49 +352,8 @@ const introSort = (arr: number[]): number[] => {
         return j;
       }
 
-      swap(arr, i, j);
+      [arr[i], arr[j]] = [arr[j], arr[i]];
     }
-  }
-
-  function heapSort(arr: number[], low: number, high: number): void {
-    const heapifiedArray = heapify(arr.slice(low, high + 1), low);
-    for (let i = heapifiedArray.length - 1; i >= 0; i--) {
-      arr[low + i] = heapifiedArray[0];
-      heapify(arr.slice(low, low + i), low);
-    }
-  }
-
-  function heapify(arr: number[], low: number): number[] {
-    const n = arr.length;
-    for (let i = Math.floor(n / 2) - 1; i >= 0; i--) {
-      heapifyHelper(arr, i, n, low);
-    }
-    return arr;
-  }
-
-  function heapifyHelper(arr: number[], i: number, heapSize: number, low: number): void {
-    const left = 2 * i + 1 + low;
-    const right = 2 * i + 2 + low;
-    let largest = i + low;
-
-    if (left < heapSize && arr[left] > arr[largest]) {
-      largest = left;
-    }
-
-    if (right < heapSize && arr[right] > arr[largest]) {
-      largest = right;
-    }
-
-    if (largest !== i + low) {
-      swap(arr, i + low, largest);
-      heapifyHelper(arr, largest - low, heapSize, low);
-    }
-  }
-
-  function swap(arr: number[], i: number, j: number): void {
-    const temp = arr[i];
-    arr[i] = arr[j];
-    arr[j] = temp;
   }
 
   function insertionSort(arr: number[], low: number, high: number): void {
@@ -365,9 +369,39 @@ const introSort = (arr: number[]): number[] => {
       arr[j + 1] = key;
     }
   }
+  function heapSort(arr: number[], low: number, high: number): void {
+    for (let i = Math.floor((high - low) / 2); i >= 0; i--) {
+      heapify(arr, i, high);
+    }
 
-  return arr;
-};
+    for (let i = high; i > low; i--) {
+      [arr[low], arr[i]] = [arr[i], arr[low]];
+      heapify(arr, low, i - 1);
+    }
+  }
+  function heapify(arr: number[], index: number, size: number): void {
+    let largest = index;
+    const left = 2 * index + 1;
+    const right = 2 * index + 2;
+
+    if (left <= size && arr[left] > arr[largest]) {
+      largest = left;
+    }
+
+    if (right <= size && arr[right] > arr[largest]) {
+      largest = right;
+    }
+
+    if (largest !== index) {
+      [arr[index], arr[largest]] = [arr[largest], arr[index]];
+      heapify(arr, largest, size);
+    }
+  }
+  const clonedArray = [...arr];
+  const maxDepth = Math.floor(2 * Math.log(clonedArray.length) / Math.log(2));
+  introSortHelper(clonedArray, 0, clonedArray.length - 1, maxDepth);
+  return clonedArray;
+}
 
 const handleDownloadUnsorted = () => {
   if (unsortedArray.value.length === 0) {
@@ -420,16 +454,16 @@ const handleDownloadSorted = () => {
   <section class="control-panel">
     <h2>Control Panel:</h2>
     <div class="btn-wrapper">
-      <button :class="{ disabled: !unsortedArray.value.length > 0 }" @click="handleRunSorting" title="Run Sorting">
+      <button :class="{ disabled: unsortedArray.value.length <= 0 }" @click="handleRunSorting" title="Run Sorting">
         Run
         <font-awesome-icon class="data-icon" icon="play" />
       </button>
-      <button :class="{ disabled: !unsortedArray.value.length > 0 }" @click="handleDownloadUnsorted"
+      <button :class="{ disabled: unsortedArray.value.length <= 0 }" @click="handleDownloadUnsorted"
         title="Download Unsorted Array">
         Unsorted
         <font-awesome-icon class="data-icon" icon="download" />
       </button>
-      <button :class="{ disabled: !sortedArray.value.length > 0 }" @click="handleDownloadSorted"
+      <button :class="{ disabled: sortedArray.value.length <= 0 }" @click="handleDownloadSorted"
         title="Download Sorted Array">
         Sorted
         <font-awesome-icon class="data-icon" icon="download" />

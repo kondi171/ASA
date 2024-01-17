@@ -11,6 +11,7 @@ body {
   background-blend-mode: multiply;
   background-color: $bgColor;
   font-family: $textFont;
+  overflow: hidden;
 }
 
 ::selection {

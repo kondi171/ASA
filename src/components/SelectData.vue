@@ -34,7 +34,7 @@ import { useAppStore } from './../stores/app.ts'
 import { ref, watch } from 'vue';
 
 const appStore = useAppStore()
-const { unsortedArray, error } = appStore
+const { unsortedArray, sortedArray, error, time, sortingTimes } = appStore
 
 const arraySize = ref(100);
 const startRange = ref(0);
@@ -96,10 +96,26 @@ const updateEndRange = (event: Event) => {
 }
 
 const handleGenerateData = () => {
-  const randomNumbers = generateRandomNumbers(arraySize.value)
+  const startTime = performance.now();
+  const randomNumbers = generateRandomNumbers(arraySize.value);
+  const endTime = performance.now();
+  const executionTime = endTime - startTime;
+
+  time.generatedIn = Number(executionTime.toFixed(5));
   unsortedArray.value = randomNumbers;
   error.dataGenerated = true;
+  sortingTimes.quickSort = 0;
+  sortingTimes.mergeSort = 0;
+  sortingTimes.heapSort = 0;
+  sortingTimes.radixSort = 0;
+  sortingTimes.countingSort = 0;
+  sortingTimes.timSort = 0;
+  sortingTimes.bucketSort = 0;
+  sortingTimes.introSort = 0;
+  sortedArray.value = [];
 }
+
+
 
 watch(error, () => {
   if (!error.fileReaded) {

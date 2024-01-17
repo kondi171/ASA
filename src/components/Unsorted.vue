@@ -4,7 +4,7 @@ import { useAppStore } from '../stores/app';
 
 
 const appStore = useAppStore();
-const { unsortedArray, error } = appStore;
+const { unsortedArray, error, time } = appStore;
 watch(error, () => {
   if (error.dataGenerated) {
     setTimeout(() => {
@@ -16,7 +16,8 @@ watch(error, () => {
 
 <template>
   <section class="sorting">
-    <h2>Unsorted Array:</h2>
+    <h2>Unsorted Array:<div class="time">Generated in: {{ time.generatedIn }}ms</div>
+    </h2>
     <div class="data">
       <div v-if="unsortedArray.value.length === 0" class="info" :class="{ error: error.dataGenerated }">
         Generate or Upload Data!

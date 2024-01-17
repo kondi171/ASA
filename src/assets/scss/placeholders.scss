@@ -31,7 +31,8 @@
 %arrayTile {
   @include tile(60vw, 40vh);
   overflow-y: auto;
-  position: relative;
+  overflow-x: hidden;
+  // position: relative;
 
   h2 {
     @extend %title;
@@ -40,6 +41,14 @@
     margin-top: -.01vmin;
     padding: 2vmin;
     background-color: $supportColor;
+    display: flex;
+    justify-content: space-evenly;
+  }
+
+  .time {
+    color: $primaryColor;
+    font-weight: bold;
+    font-size: 3vmin;
   }
 
   .data {

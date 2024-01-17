@@ -5,10 +5,12 @@ import SelectData from './components/SelectData.vue';
 import ControlPanel from './components/ControlPanel.vue';
 import Sorted from './components/Sorted.vue';
 import Unsorted from './components/Unsorted.vue';
+import TimesPin from './components/TimesPin.vue';
 </script>
 
 <template>
   <Header />
+  <TimesPin />
   <main>
     <div class="sort-wrapper">
       <Unsorted />
