@@ -30,8 +30,8 @@ export default {
             const left = array.slice(0, mid);
             const right = array.slice(mid);
 
-            const leftSorted = await this.mergeSort(left);
-            const rightSorted = await this.mergeSort(right);
+            const leftSorted: number[] = await this.mergeSort(left);
+            const rightSorted: number[] = await this.mergeSort(right);
 
             return await this.merge(leftSorted, rightSorted);
         },

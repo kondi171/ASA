@@ -2,8 +2,8 @@
     <div>
         <h2>IntroSort</h2>
         <div id="array-container">
-            <div class="visualization-info" v-if="array.length === 0">Start Visualization First!</div>
-            <div v-else v-for="(value, index) in array" :key="index" class="bar" :style="{ height: `${value}vmin` }">
+            <div class="visualization-info" v-if="mainArray.length === 0">Start Visualization First!</div>
+            <div v-else v-for="(value, index) in mainArray" :key="index" class="bar" :style="{ height: `${value}vmin` }">
                 <span>{{ value }}</span>
             </div>
         </div>
@@ -15,11 +15,11 @@
 import { ref } from 'vue'
 export default {
     setup() {
-        const array = ref<number[]>([])
+        const mainArray = ref<number[]>([]);
 
         const generateBars = async (array: number[]) => {
-            array.value = array;
-            await sleep(100)
+            mainArray.value = [...array];
+            await sleep(100);
         }
 
         const heapSort = async (array: number[], n: number) => {
@@ -100,18 +100,21 @@ export default {
         const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
 
         const startSort = async () => {
-            array.value = Array.from({ length: 20 }, () => Math.floor(Math.random() * 30) + 1)
-            await generateBars(array.value)
-            const limit = Math.log2(array.value.length)
-            quickSort(array.value, 0, array.value.length - 1)
-            if (limit > 0)
-                heapSort(array.value, array.value.length)
-            else
-                insertionSort(array.value, array.value.length)
+            mainArray.value = Array.from({ length: 20 }, () => Math.floor(Math.random() * 30) + 1);
+            await generateBars(mainArray.value);
+
+            await quickSort(mainArray.value, 0, mainArray.value.length - 1);
+
+            const limit = Math.log2(mainArray.value.length);
+            if (limit > 0) {
+                await heapSort(mainArray.value, mainArray.value.length);
+            } else {
+                insertionSort(mainArray.value, mainArray.value.length);
+            }
         }
 
         return {
-            array, startSort
+            mainArray, startSort
         }
     }
 }

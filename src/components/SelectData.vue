@@ -43,7 +43,7 @@ const endRange = ref(100);
 const readFile = () => {
   const fileInput = document.getElementById('fileInput') as HTMLInputElement;
   const fileNameContainer = document.getElementById('fileName') as HTMLDivElement;
-  const file = fileInput.files[0];
+  const file = fileInput.files?.[0]; // Use optional chaining here
   const reader = new FileReader();
 
   reader.onload = (event) => {
@@ -51,7 +51,7 @@ const readFile = () => {
     try {
       const array = JSON.parse(cleanedText);
       unsortedArray.value = array;
-      fileNameContainer.textContent = file.name;
+      fileNameContainer.textContent = file?.name ? file?.name : '';
     } catch (err) {
       console.error("Błąd parsowania JSON:", err);
       error.fileReaded = false;
@@ -64,7 +64,8 @@ const readFile = () => {
     fileNameContainer.textContent = 'No file uploaded!';
     error.fileReaded = false;
   }
-}
+};
+
 
 
 const getRandomInt = (min: number, max: number): number => {
